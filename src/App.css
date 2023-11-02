@@ -23,6 +23,9 @@
   grid-template-columns: repeat(2, minmax(0, 1fr)); /* Creates a 2-column grid */
   gap: 1rem; /* Sets the gap between rows and columns to 1rem (16px if the browser default is 16px) */
   justify-items: start;
+  padding-right: var(--calc-container-padding);
+    padding-left: var(--calc-container-padding);
+    max-width: var(--calc-container-max-width);
 }
 
 .calc-gender-wrapper {
