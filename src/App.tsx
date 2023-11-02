@@ -16,9 +16,9 @@ function App() {
   const programFeeTotal = gender === 'girls' || grade === 'k4' ? programFee : programFee + 30;
   const jerseyFeeTotal = needsJersey ? jerseyFee : 0;
   const gearRentalFeeTotal = gender === 'boys' && needsGear ? boysGearRentalFee : 0;
-  const earlyRegistrationFeeTotal = grade === 'k4' ? 135 : 155
-  const regularRegistrationFeeTotal = grade === 'k4' ? 145 : 165
-  const lateRegistrationFeeTotal = grade === 'k4' ? 170 : 190
+  const earlyRegistrationFeeTotal = grade === 'k4' ? 140 : 160
+  const regularRegistrationFeeTotal = grade === 'k4' ? 150 : 170
+  const lateRegistrationFeeTotal = grade === 'k4' ? 175 : 195
 
   const totalEarlyFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + earlyRegistrationFeeTotal;
   const totalRegularFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + regularRegistrationFeeTotal;
