@@ -8,17 +8,17 @@ function App() {
   const [grade, setGrade] = useState<string>('k4');
 
   // Define fee constants
-  const programFee = 20;
+  const programFee = 25;
   const jerseyFee = 40;
   const boysGearRentalFee = 85;
 
   // Calculate fees based on selected options
-  const programFeeTotal = programFee;
+  const programFeeTotal = gender === 'girls' || grade === 'k4' ? programFee : programFee + 30;
   const jerseyFeeTotal = needsJersey ? jerseyFee : 0;
   const gearRentalFeeTotal = gender === 'boys' && needsGear ? boysGearRentalFee : 0;
-  const earlyRegistrationFeeTotal = grade === 'k4' ? 70 : 90
-  const regularRegistrationFeeTotal = grade === 'k4' ? 85 : 105
-  const lateRegistrationFeeTotal = grade === 'k4' ? 105 : 125
+  const earlyRegistrationFeeTotal = grade === 'k4' ? 135 : 155
+  const regularRegistrationFeeTotal = grade === 'k4' ? 145 : 165
+  const lateRegistrationFeeTotal = grade === 'k4' ? 170 : 190
 
   const totalEarlyFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + earlyRegistrationFeeTotal;
   const totalRegularFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + regularRegistrationFeeTotal;
@@ -150,7 +150,7 @@ function App() {
               <tr>
                 <td className="calc-table-padding calc-table-first-column">
                   Program Fee - Payson
-                  <Tooltip message="Team & program events, practice field space, team equipment, program administration">
+                  <Tooltip message={`Team and individual pictures,${grade === 'k8' && gender === 'boys' ? ' pre-season tournament,' : ''} team & program events, practice field space, team equipment, program administration`}>
                   ⓘ
                   </Tooltip>
                 </td>
