@@ -207,6 +207,7 @@ function App() {
               totalFee={totalEarlyFee}
               programFee={programFeeTotal}
               jerseyFee={jerseyFeeTotal}
+              gearRentalFee={gearRentalFeeTotal}
               grade={grade}
             />
             <ExpandableCard
@@ -216,6 +217,7 @@ function App() {
               totalFee={totalRegularFee}
               programFee={programFeeTotal}
               jerseyFee={jerseyFeeTotal}
+              gearRentalFee={gearRentalFeeTotal}
               grade={grade}
             />
             <ExpandableCard
@@ -225,6 +227,7 @@ function App() {
               totalFee={totalLateFee}
               programFee={programFeeTotal}
               jerseyFee={jerseyFeeTotal}
+              gearRentalFee={gearRentalFeeTotal}
               grade={grade}
             />
           </div>
@@ -246,10 +249,11 @@ interface ExpandableCardProps {
   totalFee: number;
   programFee: number;
   jerseyFee: number;
+  gearRentalFee: number;
   grade: string;
 }
 
-const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee, programFee, jerseyFee, grade }) => {
+const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee, programFee, jerseyFee, gearRentalFee, grade }) => {
   return (
     <div className="calc-card">
       <div className="calc-card-header">
@@ -298,7 +302,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registra
                   ⓘ
                 </Tooltip>
               </td>
-              <td className="calc-card-table-padding calc-text-right">{gender === 'boys' ? "$85" : 'N/A'}</td>
+              <td className="calc-card-table-padding calc-text-right">{gender === 'boys' ? `$${gearRentalFee}` : 'N/A'}</td>
             </tr>
             <tr className="calc-total-row">
               <td className="calc-card-table-padding font-semibold">Total</td>
