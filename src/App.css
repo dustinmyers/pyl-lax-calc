@@ -1,9 +1,236 @@
+.calc-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+}
+
+.calc-header {
+  color:#286745ff;
+}
+
+.calc-wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 20px; /* This sets both the row gap and column gap to 20px */
+  align-items: start;
+  width: 100%;
+}
+
+.calc-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Creates a 2-column grid */
+  gap: 1rem; /* Sets the gap between rows and columns to 1rem (16px if the browser default is 16px) */
+  justify-items: start;
+}
+
+.calc-gender-wrapper {
+  display: flex;
+  align-items: flex-start; /* Aligns items to the start of the container's cross axis */
+  gap: 1rem; /* Assuming 1rem = 16px, as it's the standard browser default */
+  width: 100%; /* Makes the element take the full width of its parent */
+}
+
+.calc-radio-label {
+  display: inline-flex; /* Sets the display to inline-flex, allowing the element to be inline with other elements */
+  align-items: center; /* Vertically centers the flex items */
+  padding: 1rem; /* Assuming the default font-size is 16px, 1rem will equal 16px */
+  border: 2px solid #cbd5e1; /* This is a light gray color similar to Tailwind's border-gray-400 */
+  cursor: pointer; /* Changes the cursor to a pointer to indicate a clickable element */
+}
+
+.calc-hidden {
+  display: none; /* Hides the element */
+}
+
+.calc-grade-wrapper {
+  display: flex; /* Establish a flex container */
+  align-items: flex-start; /* Align children to the start of the cross axis */
+  gap: 1rem; /* Creates a gap between flex items; 1rem is typically 16px */
+  width: 100%; /* The element will occupy the full width of its parent */
+}
+
+.calc-checkbox-label {
+  display: inline-flex; /* Makes the element an inline-level flex container */
+  align-items: center; /* Centers the flex items vertically within the container */
+}
+
+.calc-checkbox {
+  border: 1px solid #d1d5db; /* Tailwind's border-gray-300 equivalent */
+  border-radius: 0.25rem; /* Tailwind's 'rounded' utility typically applies a moderate border-radius, 0.25rem is a sensible default */
+  height: 1.25rem; /* Tailwind's h-5 utility corresponds to a height of 1.25rem (20px if the root font-size is 16px) */
+  width: 1.25rem; /* Tailwind's w-5 utility corresponds to a width of 1.25rem (20px if the root font-size is 16px) */
+  margin-right: 0.5rem; /* Tailwind's mr-2 utility corresponds to a right margin of 0.5rem (8px if the root font-size is 16px) */
+  accent-color: #286745ff; /* The 'accent-green-500' sets the accent color for input elements; #22c55e is the hex code for Tailwind's green-500 color */
+}
+
+.calc-data-wrapper {
+  width: 100%; /* Full width */
+  margin-right: auto; /* Centers the container */
+  margin-left: auto; /* Centers the container */
+  text-align: left; /* Aligns text to the left */
+  padding-right: var(--calc-container-padding); /* Tailwind's container has responsive padding, this variable would need to be defined */
+  padding-left: var(--calc-container-padding); /* Tailwind's container has responsive padding, this variable would need to be defined */
+  max-width: var(--calc-container-max-width); /* Tailwind's container has a maximum width at each responsive breakpoint, this variable would need to be defined */
+}
+
+.calc-fee-details-header {
+  font-size: 1.25rem; /* text-xl corresponds to 1.25rem font size */
+  font-weight: 600; /* font-semibold corresponds to semi-bold or 600 font weight */
+  margin-bottom: 0.5rem; /* mb-2 corresponds to 0.5rem margin-bottom */
+}
+
+.calc-fee-table {
+  width: 100%; /* w-full makes the element span the full width of its parent */
+  display: none; /* hidden makes the element not displayed by default */
+  table-layout: auto; /* table-auto allows the table's cells to dictate the layout */
+}
+
+@media (min-width: 768px) { /* This applies the styles at the 'md' breakpoint in Tailwind, which is 768px */
+  .calc-fee-table {
+    display: block; /* md:block makes the element display as a block element on screens 768px and wider */
+  }
+}
+
+.calc-table-padding {
+  padding: 0.5rem 1rem; /* py-2 px-4 corresponds to 0.5rem padding on the y-axis and 1rem padding on the x-axis */
+}
+
+.calc-table-first-column {
+  display: flex; /* Establishes a flex container */
+  gap: 0.5rem; /* Sets a gap between flex items; gap-2 corresponds to 0.5rem */
+}
+
+.calc-text-right {
+  text-align: right; /* Tailwind's text-right utility aligns text to the right */ 
+}
+
+@media (min-width: 768px) { /* Corresponds to Tailwind's 'md' breakpoint */
+  .calc-mobile-cards-wrapper {
+    display: none; /* The element will be hidden at screen widths of 768px and above */
+  }
+}
+
+.calc-card {
+  max-width: 28rem; /* Adjust to match Tailwind's 'md' size */
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  /* The box-shadow value here is an example; you may need to adjust it to match Tailwind's 'shadow-md' appearance */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.375rem; /* This value corresponds to 'rounded-md' in Tailwind */
+  padding: 1rem; /* Padding '4' usually translates to 1rem */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.calc-card-header {
+  display: flex; /* Establishes a flex container */
+  justify-content: space-between; /* Distributes space between children */
+  align-items: center; /* Centers children vertically within the container */
+}
+
+.calc-card-header-title {
+  font-size: 1.125rem; /* text-lg sets the font-size to large, which is 1.125rem */
+  font-weight: 600; /* font-semibold sets the font-weight to semi-bold, which corresponds to 600 */
+}
+
+.calc-card-header-button {
+  background-color: #4299e1; /* bg-blue-500 */
+  color: white;
+  font-weight: bold;
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem; /* py-2 */
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+  border-radius: 0.25rem; /* rounded */
+  transition: background-color 0.2s; /* Transition for the hover effect */
+  border: none; /* Tailwind buttons don't have a border by default */
+  cursor: pointer; /* To indicate that it's clickable */
+}
+
+.calc-card-header-button:hover {
+  background-color: #2b6cb0; /* hover:bg-blue-700 */
+}
+
+.calc-card-header-button:focus {
+  outline: none; /* Tailwind removes focus outline by default */
+/* Optionally, add a focus ring or change the style for accessibility */
+}
+
+.calc-card-details-wrapper {
+  margin-top: 16px; /* mt-4 corresponds to 16px */  
+}
+
+.calc-card-table {
+  width: 100%; /* w-full sets the element's width to fully occupy the parent's width */
+  table-layout: auto; /* table-auto sets the table's layout algorithm to automatic */
+}
+
+.calc-card-table-padding {
+  padding: 16px 8px; /* py-4 px-2 corresponds to 16px padding on the y-axis and 8px padding on the x-axis */  
+}
+
+.calc-total-row {
+  background-color: #f7fafc; /* This hex color is commonly used for bg-gray-100 in Tailwind CSS */
+}
+
+.calc-tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.calc-tooltip-box {
+  position: absolute;
+  top: 100%; /* Positioned below the element */
+  left: 50%; /* Start at the middle of the element */
+  transform: translateX(-50%); /* Center it */
+  max-width: 90vw; /* Use viewport width to limit the tooltip width */
+  width: 300px;
+  padding: 8px;
+  color: white;
+  background: #333;
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  white-space: normal; /* Allow text wrapping */
+  overflow: hidden; /* Hide overflow */
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s linear, opacity 0.2s linear;
+}
+
+.calc-tooltip-box.visible {
+  /* Visible state */
+  visibility: visible;
+  opacity: 1;
+}
+
+.calc-tooltip-box::before {
+  content: '';
+  position: absolute;
+  top: -5px; /* Adjust arrow above the tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
+
+.calc-tooltip-container:hover .calc-tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+
 #fee-calc {
   margin: 0 auto;
   padding: 2rem;
 }
 
 input:checked+label {
-  border-color: #03873C;
+  border-color: #286745ff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }

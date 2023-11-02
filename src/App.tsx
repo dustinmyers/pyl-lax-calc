@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useState, useEffect, useRef } from 'react'
 import './App.css'
 
 function App() {
@@ -41,13 +41,13 @@ function App() {
   };
 
   return (
-    <div className="app container mx-auto py-6 w-full">
-      <h1 className="text-2xl md:text-4xl font-semibold mb-8 text-center">Lacrosse Team Fee Calculator</h1>
+    <div className="calc-app">
+      <h1 className="calc-header">Lacrosse Team Fee Calculator</h1>
 
-      <div className="grid grid-cols-1 gap-20 items-start w-full">
-        <div className="grid grid-cols-2 gap-4 justify-items-start">
+      <div className="calc-wrapper">
+        <div className="calc-options">
           <div>Gender:</div>
-          <div className='flex items-start gap-4 w-full'>
+          <div className='calc-gender-wrapper'>
             <div>
               <input
                 type="radio"
@@ -55,9 +55,9 @@ function App() {
                 value="boys"
                 checked={gender === 'boys'}
                 onChange={handleGenderChange}
-                className='hidden'
+                className='calc-hidden'
               />
-              <label htmlFor="radio-boys" className="inline-flex items-center p-4 border-2 border-gray-400 cursor-pointer">
+              <label htmlFor="radio-boys" className="calc-radio-label">
                 Boys
               </label>
             </div>
@@ -68,15 +68,15 @@ function App() {
                 value="girls"
                 checked={gender === 'girls'}
                 onChange={handleGenderChange}
-                className='hidden'
+                className='calc-hidden'
               />
-              <label htmlFor='radio-girls' className="inline-flex items-center p-4 border-2 border-gray-400 cursor-pointer">
+              <label htmlFor='radio-girls' className="calc-radio-label">
                 Girls
               </label>
             </div>
           </div>
           <div>Grade:</div>
-          <div className='flex items-start gap-4 w-full'>
+          <div className='calc-grade-wrapper'>
             <div>
               <input
                 type="radio"
@@ -84,9 +84,9 @@ function App() {
                 value="k4"
                 checked={grade === 'k4'}
                 onChange={handleGradeChange}
-                className='hidden'
+                className='calc-hidden'
               />
-              <label htmlFor='radio-k4' className="inline-flex items-center p-4 border-2 border-gray-400 cursor-pointer">
+              <label htmlFor='radio-k4' className="calc-radio-label">
                 K-4th
               </label>
             </div>
@@ -97,21 +97,21 @@ function App() {
                 value="k8"
                 checked={grade === 'k8'}
                 onChange={handleGradeChange}
-                className='hidden'
+                className='calc-hidden'
               />
-              <label htmlFor='radio-k8' className="inline-flex items-center p-4 border-2 border-gray-400 cursor-pointer">
+              <label htmlFor='radio-k8' className="calc-radio-label">
                 5th-8th
               </label>
             </div>
           </div>
           <div>Need to buy a jersey?</div>
           <div>
-            <label className="inline-flex items-center">
+            <label className="calc-checkbox-label">
               <input
                 type="checkbox"
                 checked={needsJersey}
                 onChange={handleJerseyChange}
-                className="border-gray-300 rounded h-5 w-5 mr-2  accent-green-500"
+                className="calc-checkbox"
               />
               Yes
             </label>
@@ -119,12 +119,12 @@ function App() {
           <div>Need to rent gear? (Boys only)</div>
           <div>
             {( gender === 'boys' ? (
-              <label className="inline-flex items-center">
+              <label className="calc-checkbox-label">
                 <input
                   type="checkbox"
                   checked={needsGear}
                   onChange={handleGearChange}
-                  className="border-gray-300 rounded h-5 w-5 mr-2 accent-green-500"
+                  className="calc-checkbox"
                 />
                 Yes
               </label>
@@ -135,71 +135,71 @@ function App() {
           </div>
         </div>
       
-        <div className="container mx-auto text-left">
-          <h2 className="text-xl font-semibold mb-2">Fee Details</h2>
-          <table className="table-auto w-full hidden md:block">
+        <div className="calc-data-wrapper">
+          <h2 className="calc-fee-details-header">Fee Details</h2>
+          <table className="calc-fee-table">
             <thead>
               <tr>
-                <th className="px-4 py-2">Description</th>
-                <th className="px-4 py-2">Early Reg Fee</th>
-                <th className="px-4 py-2">Regular Reg Fee</th>
-                <th className="px-4 py-2">Late Reg Fee</th>
+                <th className="calc-table-padding">Description</th>
+                <th className="calc-table-padding">Early Reg Fee</th>
+                <th className="calc-table-padding">Regular Reg Fee</th>
+                <th className="calc-table-padding">Late Reg Fee</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-table-padding calc-table-first-column">
                   Program Fee - Payson Youth Lacrosse
                   <Tooltip message="Team & program events, practice field space, team equipment, program administration">
                   ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">${programFeeTotal}</td>
-                <td className="px-4 py-2 text-right">${programFeeTotal}</td>
-                <td className="px-4 py-2 text-right">${programFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${programFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${programFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${programFeeTotal}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-table-padding calc-table-first-column">
                   Registration Fee - IMLAX
                   <Tooltip message="Fee changes based on when you register; covers league administration, refs, USLacrosse Membership for each player, insurance, team balls, field set up, score keepers, etc">
                     ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">${earlyRegistrationFeeTotal}</td>
-                <td className="px-4 py-2 text-right">${regularRegistrationFeeTotal}</td>
-                <td className="px-4 py-2 text-right">${lateRegistrationFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${earlyRegistrationFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${regularRegistrationFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${lateRegistrationFeeTotal}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-table-padding calc-table-first-column">
                   Jersey Fee
                   <Tooltip message="All players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL">
                     ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">${jerseyFeeTotal}</td>
-                <td className="px-4 py-2 text-right">${jerseyFeeTotal}</td>
-                <td className="px-4 py-2 text-right">${jerseyFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${jerseyFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${jerseyFeeTotal}</td>
+                <td className="calc-table-padding calc-text-right">${jerseyFeeTotal}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-table-padding calc-table-first-column">
                   Gear Rental Fee
                   <Tooltip message="BOYS ONLY; covers the full protective gear set. Gear rental is thru Storm Lacrosse in AF, but the fee is collected and paid thru IMLax during registration. Not needed if you own your own gear">
                     ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">{gender === 'boys' ? `$${gearRentalFeeTotal}` : 'N/A'}</td>
-                <td className="px-4 py-2 text-right">{gender === 'boys' ? `$${gearRentalFeeTotal}` : 'N/A'}</td>
-                <td className="px-4 py-2 text-right">{gender === 'boys' ? `$${gearRentalFeeTotal}` : 'N/A'}</td>
+                <td className="calc-table-padding calc-text-right">{gender === 'boys' ? `$${gearRentalFeeTotal}` : 'N/A'}</td>
+                <td className="calc-table-padding calc-text-right">{gender === 'boys' ? `$${gearRentalFeeTotal}` : 'N/A'}</td>
+                <td className="calc-table-padding calc-text-right">{gender === 'boys' ? `$${gearRentalFeeTotal}` : 'N/A'}</td>
               </tr>
-              <tr className="bg-gray-100">
-                <td className="px-4 py-2 font-semibold">Total</td>
-                <td className="px-4 py-2 font-semibold text-right">${totalEarlyFee}</td>
-                <td className="px-4 py-2 font-semibold text-right">${totalRegularFee}</td>
-                <td className="px-4 py-2 font-semibold text-right">${totalLateFee}</td>
+              <tr className="calc-total-row">
+                <td className="calc-table-padding font-semibold">Total</td>
+                <td className="calc-table-padding font-semibold calc-text-right">${totalEarlyFee}</td>
+                <td className="calc-table-padding font-semibold calc-text-right">${totalRegularFee}</td>
+                <td className="calc-table-padding font-semibold calc-text-right">${totalLateFee}</td>
               </tr>
             </tbody>
           </table>
-          <div className="md:hidden">
+          <div className="calc-mobile-cards-wrapper">
             <ExpandableCard
               title="Early Registration Fee"
               gender={gender}
@@ -242,62 +242,62 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registra
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-4 my-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <button onClick={toggleExpansion} className="text-blue-500">
+    <div className="calc-card">
+      <div className="calc-card-header">
+        <h2 className="calc-card-header-title">{title}</h2>
+        <button onClick={toggleExpansion} className="calc-card-header-button">
           {expanded ? 'Hide Details' : 'Show Details'}
         </button>
       </div>
       {expanded && (
-        <div className="mt-4">
-          <table className="table-auto w-full">
+        <div className="calc-card-details-wrapper">
+          <table className="calc-card-table">
             <thead>
               <tr>
-                <th className="px-4 py-2">Description</th>
-                <th className="px-4 py-2">Fee</th>
+                <th className="calc-card-table-padding">Description</th>
+                <th className="calc-card-table-padding">Fee</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-card-table-padding calc-table-first-column">
                   Program Fee - Payson Youth Lacrosse
                   <Tooltip message="Team & program events, practice field space, team equipment, program administration">
                   ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">$20</td>
+                <td className="calc-card-table-padding calc-text-right">$20</td>
               </tr>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-card-table-padding calc-table-first-column">
                   Registration Fee - IMLAX
                   <Tooltip message="Fee changes based on when you register; covers league administration, refs, USLacrosse Membership for each player, insurance, team balls, field set up, score keepers, etc">
                     ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">${registrationFee}</td>
+                <td className="calc-card-table-padding calc-text-right">${registrationFee}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-card-table-padding calc-table-first-column">
                   Jersey Fee
                   <Tooltip message="All players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL">
                     ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">$40</td>
+                <td className="calc-card-table-padding calc-text-right">$40</td>
               </tr>
               <tr>
-                <td className="px-4 py-2 flex gap-2">
+                <td className="calc-card-table-padding calc-table-first-column">
                   Gear Rental Fee
                   <Tooltip message="BOYS ONLY; covers the full protective gear set. Gear rental is thru Storm Lacrosse in AF, but the fee is collected and paid thru IMLax during registration. Not needed if you own your own gear">
                     ⓘ
                   </Tooltip>
                 </td>
-                <td className="px-4 py-2 text-right">{gender === 'boys' ? "$85" : 'N/A'}</td>
+                <td className="calc-card-table-padding calc-text-right">{gender === 'boys' ? "$85" : 'N/A'}</td>
               </tr>
-              <tr className="bg-gray-100">
-                <td className="px-4 py-2 font-semibold">Total</td>
-                <td className="px-4 py-2 font-semibold text-right">${totalFee}</td>
+              <tr className="calc-total-row">
+                <td className="calc-card-table-padding font-semibold">Total</td>
+                <td className="calc-card-table-padding font-semibold calc-text-right">${totalFee}</td>
               </tr>
             </tbody>
           </table>
@@ -313,12 +313,66 @@ interface TooltipProps {
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ message, children }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [position, setPosition] = useState<{ top: number; left: number }>({ top: 0, left: 50 });
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
+
+  const showTooltip = (): void => {
+    if (childRef.current && tooltipRef.current) {
+      const childBox = childRef.current.getBoundingClientRect();
+      const tooltipBox = tooltipRef.current.getBoundingClientRect();
+
+      // Adjust the position based on the tooltip size and child element location
+      let top = 30; // Default position below the element
+      let left = 70; // Default position centered
+
+      // Check if tooltip exceeds the bottom of the viewport
+      if (childBox.bottom + tooltipBox.height > window.innerHeight) {
+        top = -100;
+      }
+
+      // Check if tooltip exceeds the right of the viewport
+      if (childBox.left + tooltipBox.width / 2 > window.innerWidth) {
+        left = 100 - ((childBox.right / window.innerWidth) * 100);
+      }
+
+      // Check if tooltip exceeds the left of the viewport
+      if (childBox.left - tooltipBox.width / 2 < 0) {
+        left = (childBox.left / window.innerWidth) * 100;
+      }
+
+      setPosition({ top, left });
+
+      setIsVisible(true);
+    }
+  };
+
+  const hideTooltip = (): void => {
+    setIsVisible(false);
+  };
+
   return (
-    <div className="group relative flex cursor-help">
-      {children}
-      <span className="absolute top-10 scale-0 transition-all rounded w-60 bg-gray-800 p-2 text-sm text-white group-hover:scale-100">
+    <div className="calc-tooltip-container" ref={childRef}>
+      <div
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+        onTouchStart={showTooltip}
+        onTouchEnd={hideTooltip}
+        onTouchMove={hideTooltip}
+      >
+        {children}
+      </div>
+      <div
+        className={`calc-tooltip-box ${isVisible ? 'visible' : ''}`}
+        ref={tooltipRef}
+        style={{
+          top: position.top,
+          left: position.left,
+        }}
+      >
         {message}
-      </span>
+      </div>
     </div>
   );
 };
