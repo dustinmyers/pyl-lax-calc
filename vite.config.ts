@@ -5,7 +5,6 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'https://cdn.jsdelivr.net/gh/dustinmyers/pyl-lax-calc@1.0.0/dist/',
   server: {
     port: 3000,
     open: true,
