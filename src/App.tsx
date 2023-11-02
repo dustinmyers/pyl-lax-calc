@@ -205,18 +205,24 @@ function App() {
               gender={gender}
               registrationFee={earlyRegistrationFeeTotal}
               totalFee={totalEarlyFee}
+              programFee={programFeeTotal}
+              grade={grade}
             />
             <ExpandableCard
               title="Regular Registration Fee"
               gender={gender}
               registrationFee={regularRegistrationFeeTotal}
               totalFee={totalRegularFee}
+              programFee={programFeeTotal}
+              grade={grade}
             />
             <ExpandableCard
               title="Late Registration Fee"
               gender={gender}
               registrationFee={lateRegistrationFeeTotal}
               totalFee={totalLateFee}
+              programFee={programFeeTotal}
+              grade={grade}
             />
           </div>
         </div>
@@ -235,9 +241,11 @@ interface ExpandableCardProps {
   gender: string;
   registrationFee: number;
   totalFee: number;
+  programFee: number;
+  grade: string;
 }
 
-const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee }) => {
+const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee, programFee, grade }) => {
   return (
     <div className="calc-card">
       <div className="calc-card-header">
@@ -255,11 +263,11 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registra
             <tr>
               <td className="calc-card-table-padding calc-table-first-column">
                 Program Fee - PYL
-                <Tooltip message="Team & program events, practice field space, team equipment, program administration">
+                <Tooltip message={`Team and individual pictures,${grade === 'k8' && gender === 'boys' ? ' pre-season tournament,' : ''} team & program events, practice field space, team equipment, program administration`}>
                 ⓘ
                 </Tooltip>
               </td>
-              <td className="calc-card-table-padding calc-text-right">$20</td>
+              <td className="calc-card-table-padding calc-text-right">{programFee}</td>
             </tr>
             <tr>
               <td className="calc-card-table-padding calc-table-first-column">
