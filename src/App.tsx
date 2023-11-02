@@ -1,4 +1,4 @@
-import { ReactNode, useState, useEffect, useRef } from 'react'
+import { ReactNode, useState, useRef } from 'react'
 import './App.css'
 
 function App() {
