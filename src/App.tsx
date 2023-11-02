@@ -221,6 +221,9 @@ function App() {
           </div>
         </div>
       </div>
+      <a href="https://www.imlaxutah.org/resources/youth-resources" target='_blank' rel='noreferrer'>
+        <div className="calc-link">IMLax Scholarship Form can be found here</div>
+      </a>
     </div>
   );
 }
