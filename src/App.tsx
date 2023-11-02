@@ -267,7 +267,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registra
                 ⓘ
                 </Tooltip>
               </td>
-              <td className="calc-card-table-padding calc-text-right">{programFee}</td>
+              <td className="calc-card-table-padding calc-text-right">${programFee}</td>
             </tr>
             <tr>
               <td className="calc-card-table-padding calc-table-first-column">
