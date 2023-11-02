@@ -58,6 +58,12 @@ body {
   place-items: center;
   justify-content: center;
   min-width: 320px;
+  background-color: rgb(238, 238, 238);
+  padding: 0;
+
+  @media (min-width: 768px) {
+    padding: 1rem;
+  }
 }
 
 h1 {
