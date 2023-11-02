@@ -149,7 +149,7 @@ function App() {
             <tbody>
               <tr>
                 <td className="calc-table-padding calc-table-first-column">
-                  Program Fee - Payson Youth Lacrosse
+                  Program Fee - Payson
                   <Tooltip message="Team & program events, practice field space, team equipment, program administration">
                   ⓘ
                   </Tooltip>
@@ -235,74 +235,63 @@ interface ExpandableCardProps {
 }
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee }) => {
-  const [expanded, setExpanded] = useState(false);
-
-  const toggleExpansion = () => {
-    setExpanded(!expanded);
-  };
-
   return (
     <div className="calc-card">
       <div className="calc-card-header">
         <h2 className="calc-card-header-title">{title}</h2>
-        <button onClick={toggleExpansion} className="calc-card-header-button">
-          {expanded ? 'Hide Details' : 'Show Details'}
-        </button>
       </div>
-      {expanded && (
-        <div className="calc-card-details-wrapper">
-          <table className="calc-card-table">
-            <thead>
-              <tr>
-                <th className="calc-card-table-padding">Description</th>
-                <th className="calc-card-table-padding">Fee</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="calc-card-table-padding calc-table-first-column">
-                  Program Fee - Payson Youth Lacrosse
-                  <Tooltip message="Team & program events, practice field space, team equipment, program administration">
+      <div className="calc-card-details-wrapper">
+        <table className="calc-card-table">
+          <thead>
+            <tr>
+              <th className="calc-card-table-padding">Description</th>
+              <th className="calc-card-table-padding">Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="calc-card-table-padding calc-table-first-column">
+                Program Fee - PYL
+                <Tooltip message="Team & program events, practice field space, team equipment, program administration">
+                ⓘ
+                </Tooltip>
+              </td>
+              <td className="calc-card-table-padding calc-text-right">$20</td>
+            </tr>
+            <tr>
+              <td className="calc-card-table-padding calc-table-first-column">
+                Registration Fee - IMLAX
+                <Tooltip message="Fee changes based on when you register; covers league administration, refs, USLacrosse Membership for each player, insurance, team balls, field set up, score keepers, etc">
                   ⓘ
-                  </Tooltip>
-                </td>
-                <td className="calc-card-table-padding calc-text-right">$20</td>
-              </tr>
-              <tr>
-                <td className="calc-card-table-padding calc-table-first-column">
-                  Registration Fee - IMLAX
-                  <Tooltip message="Fee changes based on when you register; covers league administration, refs, USLacrosse Membership for each player, insurance, team balls, field set up, score keepers, etc">
-                    ⓘ
-                  </Tooltip>
-                </td>
-                <td className="calc-card-table-padding calc-text-right">${registrationFee}</td>
-              </tr>
-              <tr>
-                <td className="calc-card-table-padding calc-table-first-column">
-                  Jersey Fee
-                  <Tooltip message="All players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL">
-                    ⓘ
-                  </Tooltip>
-                </td>
-                <td className="calc-card-table-padding calc-text-right">$40</td>
-              </tr>
-              <tr>
-                <td className="calc-card-table-padding calc-table-first-column">
-                  Gear Rental Fee
-                  <Tooltip message="BOYS ONLY; covers the full protective gear set. Gear rental is thru Storm Lacrosse in AF, but the fee is collected and paid thru IMLax during registration. Not needed if you own your own gear">
-                    ⓘ
-                  </Tooltip>
-                </td>
-                <td className="calc-card-table-padding calc-text-right">{gender === 'boys' ? "$85" : 'N/A'}</td>
-              </tr>
-              <tr className="calc-total-row">
-                <td className="calc-card-table-padding font-semibold">Total</td>
-                <td className="calc-card-table-padding font-semibold calc-text-right">${totalFee}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+                </Tooltip>
+              </td>
+              <td className="calc-card-table-padding calc-text-right">${registrationFee}</td>
+            </tr>
+            <tr>
+              <td className="calc-card-table-padding calc-table-first-column">
+                Jersey Fee
+                <Tooltip message="All players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL">
+                  ⓘ
+                </Tooltip>
+              </td>
+              <td className="calc-card-table-padding calc-text-right">$40</td>
+            </tr>
+            <tr>
+              <td className="calc-card-table-padding calc-table-first-column">
+                Gear Rental Fee
+                <Tooltip message="BOYS ONLY; covers the full protective gear set. Gear rental is thru Storm Lacrosse in AF, but the fee is collected and paid thru IMLax during registration. Not needed if you own your own gear">
+                  ⓘ
+                </Tooltip>
+              </td>
+              <td className="calc-card-table-padding calc-text-right">{gender === 'boys' ? "$85" : 'N/A'}</td>
+            </tr>
+            <tr className="calc-total-row">
+              <td className="calc-card-table-padding font-semibold">Total</td>
+              <td className="calc-card-table-padding font-semibold calc-text-right">${totalFee}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -325,7 +314,7 @@ const Tooltip: React.FC<TooltipProps> = ({ message, children }) => {
 
       // Adjust the position based on the tooltip size and child element location
       let top = 30; // Default position below the element
-      let left = 70; // Default position centered
+      let left = 0; // Default position centered
 
       // Check if tooltip exceeds the bottom of the viewport
       if (childBox.bottom + tooltipBox.height > window.innerHeight) {

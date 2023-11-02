@@ -3,10 +3,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 32px;
+  padding: 8px;
+  max-width: 100vw;
+}
+
+@media (min-width: 768px) { 
+  .calc-app {
+    padding: 32px;
+  }
 }
 
 .calc-header {
+  text-align: center;
   color:#286745ff;
 }
 
@@ -191,7 +199,7 @@
   left: 50%; /* Start at the middle of the element */
   transform: translateX(-50%); /* Center it */
   max-width: 90vw; /* Use viewport width to limit the tooltip width */
-  width: 300px;
+  width: 200px;
   padding: 8px;
   color: white;
   background: #333;
