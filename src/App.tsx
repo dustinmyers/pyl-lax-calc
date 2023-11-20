@@ -13,16 +13,16 @@ function App() {
   const boysGearRentalFee = 85;
 
   // Calculate fees based on selected options
-  const programFeeTotal = gender === 'girls' || grade === 'k4' ? programFee : programFee + 30;
   const jerseyFeeTotal = needsJersey ? jerseyFee : 0;
+  const programFeeTotal = (gender === 'girls' || grade === 'k4' ? programFee : programFee + 30) + jerseyFeeTotal;
   const gearRentalFeeTotal = gender === 'boys' && needsGear ? boysGearRentalFee : 0;
   const earlyRegistrationFeeTotal = grade === 'k4' ? 140 : 160
   const regularRegistrationFeeTotal = grade === 'k4' ? 150 : 170
   const lateRegistrationFeeTotal = grade === 'k4' ? 175 : 195
 
-  const totalEarlyFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + earlyRegistrationFeeTotal;
-  const totalRegularFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + regularRegistrationFeeTotal;
-  const totalLateFee = programFeeTotal + jerseyFeeTotal + gearRentalFeeTotal + lateRegistrationFeeTotal;
+  const totalEarlyFee = programFeeTotal + gearRentalFeeTotal + earlyRegistrationFeeTotal;
+  const totalRegularFee = programFeeTotal + gearRentalFeeTotal + regularRegistrationFeeTotal;
+  const totalLateFee = programFeeTotal + gearRentalFeeTotal + lateRegistrationFeeTotal;
 
   const handleGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGender(e.target.value);
@@ -150,7 +150,7 @@ function App() {
               <tr>
                 <td className="calc-table-padding calc-table-first-column">
                   Program Fee - Payson
-                  <Tooltip message={`Team and individual pictures,${grade === 'k8' && gender === 'boys' ? ' pre-season tournament,' : ''} team & program events, practice field space, team equipment, program administration`}>
+                  <Tooltip message={`Team and individual pictures,${grade === 'k8' && gender === 'boys' ? ' pre-season tournament,' : ''} team & program events, practice field space, team equipment, program administration. Also, all players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL`}>
                   ⓘ
                   </Tooltip>
                 </td>
@@ -168,17 +168,6 @@ function App() {
                 <td className="calc-table-padding calc-text-right">${earlyRegistrationFeeTotal}</td>
                 <td className="calc-table-padding calc-text-right">${regularRegistrationFeeTotal}</td>
                 <td className="calc-table-padding calc-text-right">${lateRegistrationFeeTotal}</td>
-              </tr>
-              <tr>
-                <td className="calc-table-padding calc-table-first-column">
-                  Jersey Fee
-                  <Tooltip message="All players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL">
-                    ⓘ
-                  </Tooltip>
-                </td>
-                <td className="calc-table-padding calc-text-right">${jerseyFeeTotal}</td>
-                <td className="calc-table-padding calc-text-right">${jerseyFeeTotal}</td>
-                <td className="calc-table-padding calc-text-right">${jerseyFeeTotal}</td>
               </tr>
               <tr>
                 <td className="calc-table-padding calc-table-first-column">
@@ -206,7 +195,6 @@ function App() {
               registrationFee={earlyRegistrationFeeTotal}
               totalFee={totalEarlyFee}
               programFee={programFeeTotal}
-              jerseyFee={jerseyFeeTotal}
               gearRentalFee={gearRentalFeeTotal}
               grade={grade}
             />
@@ -216,7 +204,6 @@ function App() {
               registrationFee={regularRegistrationFeeTotal}
               totalFee={totalRegularFee}
               programFee={programFeeTotal}
-              jerseyFee={jerseyFeeTotal}
               gearRentalFee={gearRentalFeeTotal}
               grade={grade}
             />
@@ -226,7 +213,6 @@ function App() {
               registrationFee={lateRegistrationFeeTotal}
               totalFee={totalLateFee}
               programFee={programFeeTotal}
-              jerseyFee={jerseyFeeTotal}
               gearRentalFee={gearRentalFeeTotal}
               grade={grade}
             />
@@ -248,12 +234,11 @@ interface ExpandableCardProps {
   registrationFee: number;
   totalFee: number;
   programFee: number;
-  jerseyFee: number;
   gearRentalFee: number;
   grade: string;
 }
 
-const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee, programFee, jerseyFee, gearRentalFee, grade }) => {
+const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registrationFee, totalFee, programFee, gearRentalFee, grade }) => {
   return (
     <div className="calc-card">
       <div className="calc-card-header">
@@ -271,7 +256,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registra
             <tr>
               <td className="calc-card-table-padding calc-table-first-column">
                 Program Fee - PYL
-                <Tooltip message={`Team and individual pictures,${grade === 'k8' && gender === 'boys' ? ' pre-season tournament,' : ''} team & program events, practice field space, team equipment, program administration`}>
+                <Tooltip message={`Team and individual pictures,${grade === 'k8' && gender === 'boys' ? ' pre-season tournament,' : ''} team & program events, practice field space, team equipment, program administration. Also, all players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL`}>
                 ⓘ
                 </Tooltip>
               </td>
@@ -285,15 +270,6 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ title, gender, registra
                 </Tooltip>
               </td>
               <td className="calc-card-table-padding calc-text-right">${registrationFee}</td>
-            </tr>
-            <tr>
-              <td className="calc-card-table-padding calc-table-first-column">
-                Jersey Fee
-                <Tooltip message="All players need a Payson Youth Lacrosse jersey, but do not need to purchase a new jersey for each season. If you have a jersey from a prior season that still fits and is in acceptable condition, you can definitely use it again. These fees are paid directly to PYL">
-                  ⓘ
-                </Tooltip>
-              </td>
-              <td className="calc-card-table-padding calc-text-right">${jerseyFee}</td>
             </tr>
             <tr>
               <td className="calc-card-table-padding calc-table-first-column">
